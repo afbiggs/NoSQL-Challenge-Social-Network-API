@@ -40,10 +40,9 @@ const UserSchema = new Schema(
 // create the User model using the UserSchema
 const User = model('User', UserSchema);
 
-// get total count of friends
+// gets total friend count
 UserSchema.virtual('friendCount').get(function () {
     return this.friends.length;
 });
 
-// export the User model
 module.exports = user;
