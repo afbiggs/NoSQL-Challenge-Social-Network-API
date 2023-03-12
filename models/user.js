@@ -1,48 +1,103 @@
-const { Schema, model } = require('mongoose');
+// const { Schema, model } = require('mongoose');
 
-// user schema
+// // user schema
+// const UserSchema = new Schema(
+//     {
+//         username: {
+//             type: String,
+//             unique: true,
+//             required: true,
+//             trim: true
+//         },
+//         email: {
+//             type: String,
+//             unique: true,
+//             required: true,
+//             match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
+//         },
+//         thoughts: [
+//             {
+//                 type: Schema.Types.ObjectId,
+//                 ref: 'Thought'
+//             }
+//         ],
+//         friends: [
+//             {
+//                 type: Schema.Types.ObjectId,
+//                 ref: 'User'
+//             }
+//         ]
+//     },
+//     {
+//         toJSON: {
+//             virtuals: true,
+//             getters: true
+//         },
+//         id: false
+//     }
+// );
+
+// // create the User model using the UserSchema
+// const User = model('user', UserSchema);
+
+// // gets total friend count
+// UserSchema.virtual('friendCount').get(function () {
+//     return this.friends.length;
+// });
+
+// module.exports = User;
+
+const { Schema, model } = require('mongoose')
+const moment = require('moment')
+
+//Schema to create User model
 const UserSchema = new Schema(
-    {
-        username: {
-            type: String,
-            unique: true,
-            required: true,
-            trim: true
-        },
-        email: {
-            type: String,
-            unique: true,
-            required: true,
-            match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
-        },
-        thoughts: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Thought'
-            }
-        ],
-        friends: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'User'
-            }
-        ]
+  {
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
-    {
-        toJSON: {
-            virtuals: true,
-            getters: true
-        },
-        id: false
-    }
-);
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
+      match: [
+        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+        'Enter a valid email address',
+      ],
+    },
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Thought',
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+  },
+  {
+   
 
-// create the User model using the UserSchema
-const User = model('User', UserSchema);
+ toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  },
+)
+//Initialize our User model
+const User = model('User', UserSchema)
 
-// gets total friend count
 UserSchema.virtual('friendCount').get(function () {
-    return this.friends.length;
-});
+  return this.friends.lenght
+})
 
-module.exports = user;
+//export The user model
+module.exports = User
