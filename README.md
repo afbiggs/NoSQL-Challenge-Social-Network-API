@@ -13,3 +13,6 @@ This project utilizes:
 ### Who can use this
 
 Anyone is allowed to use this code. Just clone the repo and run `npm i` in order to load the propper node modules. 
+
+### Testing
+All tests have been ran locally using heroku to test the API routes. 
